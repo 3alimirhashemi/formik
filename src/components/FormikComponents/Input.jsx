@@ -1,0 +1,13 @@
+import React from "react"
+import {FastField} from 'formik';
+
+const Input = ({formik , type , name ,icon, label})=>{
+    return(
+        <div className={`wrap-input100 validate-input ${formik.errors[name] && formik.touched[name] ?'alert-validate': null}`} 
+        data-validate={formik.errors[name]}>
+                <FastField className="input100" type={type} name={name} placeholder={label}/>
+                <span className="focus-input100" data-placeholder={icon}></span>
+        </div>
+    )
+}
+export default Input
