@@ -4,8 +4,9 @@ import React, { Fragment } from 'react';
 const Radio = (props) => {
     const {name,label,options} = props;
     return (
-        <div className="mb-2">
-            <label htmlFor={name} className="form-label">{label}</label>
+        <>
+        <div className="radio-input mt-5 mr-5">
+        <label htmlFor={name} className="">{label}</label>
             <FastField className="form-control" id={name} name={name}>
                 {({field})=>{
                     console.log(field);
@@ -25,6 +26,7 @@ const Radio = (props) => {
                 }}
             </FastField>
         </div>
+        </>
     );
 }
 

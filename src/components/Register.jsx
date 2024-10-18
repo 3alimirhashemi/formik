@@ -11,7 +11,8 @@ const initialValues = {
     mobile:'',
     password:'',
     confirm_pass:'',
-    auth_mode:'mobile'
+    auth_mode:'mobile',
+    date:''
 }
 const onSubmit = (values)=>{
     console.log(values);
@@ -45,6 +46,11 @@ const authMode = [
     {id: 'mobile' , value: 'موبایل'},
     {id: 'email' , value: 'ایمیل'}
 ]
+
+const setDateValue = (value)=>{
+    console.log(value);
+    
+}
 
 const Register = () => {
     
@@ -147,7 +153,16 @@ const Register = () => {
                                     icon="&#xe838;"
                                     label='تایید رمز عبور'
                                     />
-            
+                                    
+                                    <Formikcontrol
+                                    formik={formik}
+                                    control='date'
+                                    name='date'
+                                    icon="&#xe924;"
+                                    label='تاریخ تولد'
+                                    />
+                                    
+
                                     <div className="container-login100-form-btn m-t-32">
                                         <button type="submit" className="login100-form-btn">
                                            ثبت نام
@@ -157,9 +172,9 @@ const Register = () => {
                                 </Form>
                             </div>
                         )
-                     }
-                        
                     }
+                    
+                }
                 </Formik>
             </div>
 	    </div>
