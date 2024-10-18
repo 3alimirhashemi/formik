@@ -2,6 +2,8 @@ import { Formik , Form } from "formik";
 import React from "react";
 import * as Yup from "yup";
 import Formikcontrol from "./FormikComponents/FormikControl";
+import axios from "axios";
+
 
 const initialValues = {
     username:'',
@@ -12,11 +14,19 @@ const initialValues = {
     password:'',
     confirm_pass:'',
     auth_mode:'mobile',
-    date:''
+    date:'',
+    img:null
 }
 const onSubmit = (values)=>{
     console.log(values);
     alert('ثبت نام با موفقیت انجام شد.')
+    let formData = new FormData();
+    formData.append('username',values.username)
+    formData.append('mobile',values.mobile)
+    formData.append('password',values.password)
+    formData.append('img',values.img)
+
+    axios.post('url',formData,{headers:{'Content-Type':'multipart/form-data'}})
 }
 const validationSchema = Yup.object({
 
@@ -40,7 +50,12 @@ const validationSchema = Yup.object({
     password: Yup.string().required('رمز عبور را وارد نمایید.')
     .matches(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$/,'رمز عبور مناسب وارد نمایید'),
     confirm_pass: Yup.string().required('رمز عبور را مجددا وارد نمایید.')
-    .oneOf([Yup.ref('password')],'فیلد رمز عبور باهم برابر نیست.')
+    .oneOf([Yup.ref('password')],'فیلد رمز عبور باهم برابر نیست.'),
+    date: Yup.string().required('تاریخ تولد الزامیست'),
+    img : Yup.mixed()
+    .required('تصویر الزامیست')
+    .test('filesized', 'حجم عکس بالا است', value=>value && value.size <=(500*1024))
+    .test('format' ,'فرمت فایل مناسب نیست', value=> value && value.type === 'img/jpeg' && 'img/png' && 'img/jpg')
 })
 const authMode = [
     {id: 'mobile' , value: 'موبایل'},
@@ -160,6 +175,14 @@ const Register = () => {
                                     name='date'
                                     icon="&#xe924;"
                                     label='تاریخ تولد'
+                                    />
+
+                                    <Formikcontrol
+                                    formik={formik}
+                                    control='file'
+                                    name='img'
+                                    icon="&#xe924;"
+                                    label='تصویر کاربر'
                                     />
                                     
 
